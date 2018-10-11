@@ -6,5 +6,5 @@ you want.  I am still learning how to do the pull requests
 #Struggle is REAL
 ## What I need help doing
 - Make bot ignore: 
---Init messages
---"!sr url"
+-Init messages
+-"!sr url"
