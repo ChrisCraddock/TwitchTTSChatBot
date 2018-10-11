@@ -74,7 +74,7 @@ while True:
         username = re.search(r"\w+", response).group(0)  # return the entire match
         message = CHAT_MSG.sub("", response)
         print(username + ": " + message)
-        #Start TTS Bot
+   #Start TTS Bot
         engine = pyttsx3.init()
         sound = engine.getProperty('voices')
         engine.setProperty('voice', sound[1].id) #0= male 1=female
@@ -82,7 +82,7 @@ while True:
         engine.setProperty('rate', 120)  # 120 words per minute
         engine.setProperty('volume', 0.9)
         engine.runAndWait()
-        #End TTS Bot
+   #End TTS Bot
         for pattern in PATT:
             if re.match(pattern,message):
                 ban(s, username)
