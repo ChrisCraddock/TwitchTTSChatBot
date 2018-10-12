@@ -4,12 +4,13 @@ import time
 import re
 import pyttsx3
 
+'''Change lines 84 and 88 to your bots name (leave the ':' where they are, just put in YOUR bots name'''
 
 HOST = "irc.chat.twitch.tv"  # the twitch irc server
 PORT = 6667  # always use port 6667
-NICK = ""  # twitch username, lowercase
+NICK = ""  # # twitch bot username, lowercase
 PASS = ""  # your twitch OAuth token
-CHAN = "#fuzzybuttgaming"  # the channel you want to join
+CHAN = "#fuzzybuttgaming"  # the channel you want to join (leave the '#' at the beginning)
 
 # Message Rate
 RATE = (20 / 30)  # messages per second
@@ -74,15 +75,28 @@ while True:
         username = re.search(r"\w+", response).group(0)  # return the entire match
         message = CHAT_MSG.sub("", response)
         print(username + ": " + message)
-   #Start TTS Bot
-        engine = pyttsx3.init()
-        sound = engine.getProperty('voices')
-        engine.setProperty('voice', sound[1].id) #0= male 1=female
-        engine.say(username + " says " + message)
-        engine.setProperty('rate', 120)  # 120 words per minute
-        engine.setProperty('volume', 0.9)
-        engine.runAndWait()
-   #End TTS Bot
+        #Start TTS Bot
+        if '!sr' in message: #ignore reading song request
+            pass
+        elif 'http' in message: #ignore reading http links (which really is solved by streamelements below)
+            pass
+        elif ':tmi' in message: #ignore initial loading text (trust me, remove it and see how annoying it is)
+            pass
+        elif ':fuzzybottgaming' in message: #same as above
+            pass
+        elif 'streamelements' in username: #ignores anything the username specified says
+            pass
+        elif 'fuzzybottgaming' in username: #ignores your bot if it posts anything
+            pass
+        else:
+            engine = pyttsx3.init()
+            sound = engine.getProperty('voices')
+            engine.setProperty('voice', sound[1].id) #0= male 1=female
+            engine.say(username + " says " + message)
+            engine.setProperty('rate', 120)  # 120 words per minute
+            engine.setProperty('volume', 0.9)
+            engine.runAndWait()
+        #End TTS Bot
         for pattern in PATT:
             if re.match(pattern,message):
                 ban(s, username)
