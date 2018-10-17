@@ -15,7 +15,8 @@ you want.  I am still learning how to do the pull requests
   - must first install pip install soundplay
 - 10/16/18 -FIXED to now send messages to chat
   - line 17: took out the '#' in CHAN
-  - line 48: added '\r\n' and '.encode("utf-8")'
-  - line 71: added message to be sent into chat when bot connects
+  - line 18: had to add in a 2nd CHAN so the bot will show messages, same with line 39 and 52
+  - line 50: added '\r\n' and '.encode("utf-8")'
+  - line 75: added message to be sent into chat when bot connects
 ## Soundfx updates:
 - 10/13/18 -soundfx.py added to store mp3 files for chat to call upon
