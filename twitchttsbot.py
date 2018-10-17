@@ -14,7 +14,7 @@ HOST = "irc.chat.twitch.tv"  # the twitch irc server
 PORT = 6667  # always use port 6667
 NICK = ""  # twitch bot username, lowercase
 PASS = ""  # your twitch OAuth token
-CHAN = "#"  # the channel you want to join (leave the '#' at the beginning)
+CHAN = ""  # the channel you want to join 
 
 # Message Rate
 RATE = (20 / 30)  # messages per second
@@ -45,7 +45,7 @@ def chat(sock, msg):
     sock -- the socket over which to send the message
     msg -- the message to be sent
     '''
-    sock.send("PRIVMSG #{} :{}".format(CHAN, msg))
+    sock.send("PRIVMSG #{} :{}\r\n".format(CHAN, msg).encode("utf-8"))
 
 
 def ban(sock, user):
@@ -68,7 +68,7 @@ def timeout(sock, user, secs=10):
 
 # Make sure you prefix the quotes with an 'r'
 CHAT_MSG = re.compile(r"^:\w+!\w+@\w+\.tmi\.twitch\.tv PRIVMSG #\w+ :")
-
+chat(s,"Change ma value you bum, line 71") #Enter chat message for when connecting
 
 while True:
     response = s.recv(1024).decode("utf-8")
