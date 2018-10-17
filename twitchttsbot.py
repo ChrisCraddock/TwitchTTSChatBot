@@ -15,6 +15,8 @@ PORT = 6667  # always use port 6667
 NICK = ""  # twitch bot username, lowercase
 PASS = ""  # your twitch OAuth token
 CHAN = ""  # the channel you want to join 
+CHAN2 = "# " # the channel name again but this lets the bot print you a copy of the message
+
 
 # Message Rate
 RATE = (20 / 30)  # messages per second
@@ -34,7 +36,7 @@ s.connect((HOST, PORT))
 s.send("PASS {}\r\n".format(PASS).encode("utf-8"))
 s.send("NICK {}\r\n".format(NICK).encode("utf-8"))
 s.send("JOIN {}\r\n".format(CHAN).encode("utf-8"))
-
+s.send("JOIN {}\r\n".format(CHAN2).encode("utf-8")) # goes with the CHAN2 above
 
 
 
@@ -46,6 +48,8 @@ def chat(sock, msg):
     msg -- the message to be sent
     '''
     sock.send("PRIVMSG #{} :{}\r\n".format(CHAN, msg).encode("utf-8"))
+    sock.send("PRIVMSG #{} : {}\r\n".format(CHAN2, msg).encode("utf-8")) 
+      #for some reason I now need this if I want to bot to print to chat
 
 
 def ban(sock, user):
@@ -80,8 +84,9 @@ while True:
         username = re.search(r"\w+", response).group(0)  # return the entire match
         message = CHAT_MSG.sub("", response)
         print(username + ": " + message)
-        #Start TTS Bot
 
+        if 'fuzzy' in message:
+            chat(s, "(⊃─.─)⊃ Fight me") # there is a cool down period, not sure how to change it
         ##################### MP3 Effects ###################################
     '''
         # checks for '!--' and playes associated effect in soundfx module
@@ -106,6 +111,7 @@ while True:
         elif '!gameover' in message:
             soundfx.sounds9(message)
     '''
+   #Start TTS Bot
         #####################################################################
         
         if '!' in message: #ignore reading song request
